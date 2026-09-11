@@ -22,7 +22,11 @@ def test_config_yaml_reads_use_utf8(monkeypatch, tiny_config):
 
     def _utf8_guarded_open(self, *args, **kwargs):
         mode = args[0] if args else kwargs.get("mode", "r")
-        if "r" in mode and "b" not in mode and self.suffix in {".yaml", ".yml"}:
+        if (
+            "r" in mode
+            and "b" not in mode
+            and self.suffix in {".yaml", ".yml"}
+        ):
             assert kwargs.get("encoding") == "utf-8"
         return real_open(self, *args, **kwargs)
 
